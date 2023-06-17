@@ -1,19 +1,24 @@
 import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
-import { Text, View, Image, StyleSheet, Dimensions } from 'react-native';
+import { Text, View, Image, StyleSheet, Dimensions, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { RootStackParams } from '../navigation/Navigation';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useMovieDetails } from '../hooks/useMovieDetails';
+import MovieDetails from '../components/MovieDetails';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const screenHeight = Dimensions.get('screen').height;
 
 interface Props extends StackScreenProps<RootStackParams, 'Details'> { }
 
-const DetailScreen = ({ route }: Props) => {
+const DetailScreen = ({ route, navigation }: Props) => {
 
     const movie = route.params;
     const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
-    console.log(movie.title);
+    const { isLoading, cast, movieFull } = useMovieDetails(movie.id);
+
+    console.log(cast);
 
     return (
         <ScrollView>
@@ -28,6 +33,25 @@ const DetailScreen = ({ route }: Props) => {
                 <Text style={styles.subtitle}>{movie.original_title}</Text>
                 <Text style={styles.title}>{movie.title}</Text>
             </View>
+
+            {
+                isLoading
+                    ? <ActivityIndicator size={30} color={"gray"} style={{ marginTop: 20 }} />
+                    : <MovieDetails movieFull={movieFull!} cast={cast} />
+            }
+
+            {/* Boton para regresar */}
+            <TouchableOpacity
+                style={styles.backButton}
+                onPress={() => navigation.pop()}
+            >
+                <Icon
+                    color="white"
+                    name="arrow-back-circle-outline"
+                    size={30}
+                />
+            </TouchableOpacity>
+
         </ScrollView>
     );
 };
@@ -68,5 +92,11 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         color: 'black',
+    },
+    backButton: {
+        position: 'absolute',
+        elevation: 9,
+        top: 10,
+        left: 5,
     },
 });

@@ -18,7 +18,7 @@ const MoviePoster = ({ movie, height = 420, width = 300 }: Props) => {
     return (
         // eslint-disable-next-line react-native/no-inline-styles
         <TouchableOpacity
-            onPress={() => navigation.navigate('Details', movie)}
+            onPress={() => navigation.navigate("Details", movie)}
             activeOpacity={0.8}
             style={{ width, height, marginHorizontal: 2, paddingBottom: 20, paddingHorizontal: 6 }}>
             <View style={styles.imageContainer}>
