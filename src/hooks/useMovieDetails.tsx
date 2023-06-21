@@ -27,8 +27,6 @@ export const useMovieDetails = (movieId: number) => {
             movieFull: movieDetailsResp.data,
             cast: castPromiseResponse.data.cast,
         });
-
-        console.log(movieDetailsResp.data);
     };
 
     useEffect(() => {
