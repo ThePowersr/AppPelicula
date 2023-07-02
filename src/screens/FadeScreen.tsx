@@ -26,11 +26,11 @@ const FadeScreen = () => {
             }} />
             <Button
                 title="FadeIn"
-                onPress={fadeIn}
+                onPress={() => fadeIn()}
             />
             <Button
                 title="FadeOut"
-                onPress={fadeOut}
+                onPress={() => fadeOut()}
             />
         </View>
 
