@@ -1,6 +1,6 @@
 import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
-import { Text, View, Image, StyleSheet, Dimensions, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { Text, View, Image, StyleSheet, Dimensions, ActivityIndicator, TouchableOpacity, Platform } from 'react-native';
 import { RootStackParams } from '../navigation/Navigation';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useMovieDetails } from '../hooks/useMovieDetails';
@@ -46,7 +46,7 @@ const DetailScreen = ({ route, navigation }: Props) => {
                 <Icon
                     color="white"
                     name="arrow-back-circle-outline"
-                    size={30}
+                    size={50}
                 />
             </TouchableOpacity>
 
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     backButton: {
         position: 'absolute',
         elevation: 9,
-        top: 10,
-        left: 5,
+        top: Platform.OS === 'ios' ? 50 : 10,
+        left: Platform.OS === 'ios' ? 20 : 5,
     },
 });
